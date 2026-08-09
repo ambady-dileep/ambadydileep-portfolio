@@ -30,7 +30,7 @@ export const navLinks = [
 ];
 
 export const socialLinks = [
-  { name: "GitHub", href: "https://github.com/Ambady-dileep", icon: "github" },
+  { name: "GitHub", href: "https://github.com/ambady-dileep", icon: "github" },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/ambadydileep/",
@@ -38,7 +38,7 @@ export const socialLinks = [
   },
   {
     name: "LeetCode",
-    href: "https://leetcode.com/u/Ambady_dileep/",
+    href: "https://leetcode.com/u/Ambady_Dileep/",
     icon: "code",
   },
 ];

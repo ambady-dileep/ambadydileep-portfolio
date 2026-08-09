@@ -175,11 +175,11 @@ Full-Stack Developer
 
 Email: [ambadydileep.in@gmail.com](mailto:ambadydileep.in@gmail.com)
 
-GitHub: https://github.com/Ambady-dileep
+GitHub: https://github.com/ambady-dileep
 
 LinkedIn: https://www.linkedin.com/in/ambadydileep/
 
-LeetCode: https://leetcode.com/u/Ambady_dileep/
+LeetCode: https://leetcode.com/u/Ambady_Dileep/
 
 ---
 
