@@ -16,9 +16,17 @@ export const siteConfig = {
 };
 
 export const heroStats = [
-  { value: "4+", label: "Projects" },
-  { value: "10+", label: "Technologies" },
-  { value: "Full-Stack", label: "Focus" },
+  { value: "20+", label: "Projects" },
+  { value: "7", label: "Live Sites" },
+  { value: "2+", label: "Years" },
+];
+
+export const heroCoreStack = ["Python", "Django", "React", "PostgreSQL"];
+
+export const heroRoles = [
+  "Software Engineer",
+  "Django & React Developer",
+  "Self-taught Full-stack Developer",
 ];
 
 export const navLinks = [

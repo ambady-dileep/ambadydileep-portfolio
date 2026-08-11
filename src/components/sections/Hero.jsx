@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Download, MapPin } from 'lucide-react';
-import { heroStats, siteConfig } from '../../data/site';
+import { heroStats, heroCoreStack, heroRoles, siteConfig } from '../../data/site';
 import { useMouseParallax } from '../../hooks/useMouseParallax';
-import { MagneticButton } from '../ui/MagneticButton';
+import SpecularButton from '../ui/SpecularButton';
 import { fadeUp, staggerContainer } from '../../utils/motion';
 import SplitText from '../ui/SplitText';
+import TextType from '../ui/TextType';
 import LightRays from '../ui/LightRays';
 
 export function Hero({ isDark }) {
@@ -26,6 +27,15 @@ export function Hero({ isDark }) {
     document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleDownloadResume = () => {
+    const link = document.createElement('a');
+    link.href = siteConfig.resumePath;
+    link.download = 'AmbadyDileepResume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const rayColor = isDark ? '#ffffff' : '#f5f5f0';
 
   return (
@@ -33,43 +43,47 @@ export function Hero({ isDark }) {
       id="hero"
       className="relative overflow-hidden"
     >
-      {/* Light Rays Background Effect */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '100%',
-          zIndex: 1,
-          pointerEvents: 'none',
-        }}
-      >
-        <LightRays
-          raysOrigin="top-center"
-          raysColor={rayColor}
-          raysSpeed={0.4}
-          lightSpread={isMobile ? 1.6 : 1.3}
-          rayLength={isMobile ? 4.2 : 2.4}
-          fadeDistance={isMobile ? 3.2 : 1.6}
-          saturation={1.0}
-          followMouse={!isMobile}
-          mouseInfluence={0.1}
-          noiseAmount={0.015}
-          distortion={0.01}
-          pulsating={false}
-        />
+      {/* Light Rays Background Effect — desktop only. On mobile the rays either get
+          cropped or have to be blown out so wide they lose their shape, and the
+          PremiumBackground mesh/aurora layer beneath already carries the page. */}
+      {!isMobile && (
         <div
+          aria-hidden="true"
           style={{
             position: 'absolute',
-            inset: isMobile ? '35% 0 0 0' : '65% 0 0 0',
-            background: isDark
-              ? 'linear-gradient(to bottom, transparent 0%, rgba(3,7,18,0.4) 100%)'
-              : 'linear-gradient(to bottom, transparent 0%, rgba(248,250,252,0.4) 100%)'
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '100%',
+            zIndex: 1,
+            pointerEvents: 'none',
           }}
-        />
-      </div>
+        >
+          <LightRays
+            raysOrigin="top-center"
+            raysColor={rayColor}
+            raysSpeed={0.4}
+            lightSpread={1.3}
+            rayLength={2.4}
+            fadeDistance={1.6}
+            saturation={1.0}
+            followMouse
+            mouseInfluence={0.1}
+            noiseAmount={0.015}
+            distortion={0.01}
+            pulsating={false}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              inset: '65% 0 0 0',
+              background: isDark
+                ? 'linear-gradient(to bottom, transparent 0%, rgba(3,7,18,0.4) 100%)'
+                : 'linear-gradient(to bottom, transparent 0%, rgba(248,250,252,0.4) 100%)'
+            }}
+          />
+        </div>
+      )}
 
       {/* ── Content Container ── */}
       <div
@@ -128,18 +142,24 @@ export function Hero({ isDark }) {
               order: isMobile ? 1 : 0,
             }}
           >
-            <SplitText
-              text={siteConfig.role}
-              tag="h2"
-              className="text-[10px] sm:text-[11px] font-medium tracking-[0.2em] uppercase text-[var(--text-subtle)]"
-              delay={0.02}
-              duration={0.4}
-              ease={[0.22, 1, 0.36, 1]}
-              from={{ opacity: 0, y: 6 }}
-              to={{ opacity: 1, y: 0 }}
-              textAlign={isMobile ? 'center' : 'left'}
-              threshold={0.1}
-            />
+            <h2
+              className="flex items-center gap-1.5 text-[13px] sm:text-[14px] font-medium tracking-[0.03em] text-[var(--text-subtle)]"
+              style={{ justifyContent: isMobile ? 'center' : 'flex-start' }}
+            >
+              <span>I'm a</span>
+              <TextType
+                as="span"
+                text={heroRoles}
+                typingSpeed={55}
+                deletingSpeed={28}
+                pauseDuration={1800}
+                initialDelay={200}
+                showCursor
+                cursorCharacter="|"
+                cursorClassName="text-blue-500"
+                loop
+              />
+            </h2>
             
             <SplitText
               text={siteConfig.name}
@@ -154,19 +174,34 @@ export function Hero({ isDark }) {
               threshold={0.1}
             />
 
-            {/* Apple-Style Premium Availability Badge */}
-            <motion.div 
+            <motion.p
               variants={fadeUp}
-              className="glass px-3.5 py-1.5 rounded-full flex items-center gap-2 shadow-[var(--shadow-soft)] border border-[var(--glass-border)]"
-              style={{ marginTop: '4px' }}
+              className="text-[var(--text-muted)] font-light"
+              style={{
+                fontSize: '15px',
+                lineHeight: 1.55,
+                maxWidth: '420px',
+                textAlign: isMobile ? 'center' : 'left',
+                marginTop: '4px',
+              }}
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span className="text-[11px] font-medium tracking-tight text-[var(--text-muted)]">
-                Available for Freelance Projects
-              </span>
+              {siteConfig.headline}
+            </motion.p>
+
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-wrap gap-2"
+              style={{ justifyContent: isMobile ? 'center' : 'flex-start' }}
+            >
+              {heroCoreStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-[var(--border)] text-[var(--text-subtle)]"
+                  style={{ fontSize: '11px', padding: '4px 10px', fontWeight: 500 }}
+                >
+                  {tech}
+                </span>
+              ))}
             </motion.div>
 
             <motion.div
@@ -215,13 +250,19 @@ export function Hero({ isDark }) {
                   }}
                 />
                 
-                {/* Image Structure - Completely borderless/frameless */}
+                {/* Gradient-edge ring: replaces the flat cutout look with a thin lit border */}
                 <div
-                  className="relative rounded-2xl overflow-hidden"
-                  style={{ width: isMobile ? '250px' : '310px' }}
+                  className="relative rounded-2xl"
+                  style={{
+                    width: isMobile ? '250px' : '310px',
+                    padding: '1px',
+                    background: isDark
+                      ? 'linear-gradient(160deg, rgba(96,165,250,0.55), rgba(99,102,241,0.15) 40%, rgba(255,255,255,0.06) 100%)'
+                      : 'linear-gradient(160deg, rgba(37,99,235,0.35), rgba(99,102,241,0.12) 40%, rgba(0,0,0,0.04) 100%)',
+                  }}
                 >
                   <div
-                    className="w-full overflow-hidden bg-[var(--bg-muted)]"
+                    className="relative w-full overflow-hidden rounded-2xl bg-[var(--bg-muted)]"
                     style={{ aspectRatio: '3/4' }}
                   >
                     {!imgError ? (
@@ -244,6 +285,22 @@ export function Hero({ isDark }) {
                         </p>
                       </div>
                     )}
+
+                    {/* Fine grain, matching the rest of the page, so the portrait doesn't read as a separate flat asset */}
+                    <div className="noise-overlay" aria-hidden="true" />
+
+                    {/* Bottom fade into the page background so the photo's edge feels anchored, not cut out */}
+                    <div
+                      aria-hidden="true"
+                      style={{
+                        position: 'absolute',
+                        inset: 'auto 0 0 0',
+                        height: '35%',
+                        background: `linear-gradient(to bottom, transparent, var(--bg) 130%)`,
+                        opacity: isDark ? 0.55 : 0.35,
+                        pointerEvents: 'none',
+                      }}
+                    />
                   </div>
                 </div>
               </motion.div>
@@ -304,20 +361,50 @@ export function Hero({ isDark }) {
                 marginTop: isMobile ? '8px' : '0',
               }}
             >
-              <MagneticButton onClick={scrollToWork} style={{ width: '100%', justifyContent: 'center' }}>
+              <SpecularButton
+                size="md"
+                radius={9999}
+                onClick={scrollToWork}
+                className="specular-button--block"
+                tint="#2563eb"
+                tintOpacity={1}
+                baseColor="#1e3a8a"
+                lineColor="#bfdbfe"
+                textColor="#ffffff"
+                intensity={1.1}
+                shineSize={14}
+                shineFade={45}
+                thickness={1.4}
+                speed={0.3}
+                followMouse
+                proximity={220}
+              >
                 View Featured Work
                 <ArrowRight className="w-4 h-4 ml-1" strokeWidth={2} />
-              </MagneticButton>
-              
-              <MagneticButton
-                href={siteConfig.resumePath}
-                variant="secondary"
-                download="AmbadyDileepResume.pdf"
-                style={{ width: '100%', justifyContent: 'center' }}
+              </SpecularButton>
+
+              <SpecularButton
+                size="md"
+                radius={9999}
+                onClick={handleDownloadResume}
+                className="specular-button--block"
+                tint={isDark ? '#0f172a' : '#ffffff'}
+                tintOpacity={isDark ? 0.55 : 0.6}
+                blur={20}
+                baseColor={isDark ? '#334155' : '#cbd5e1'}
+                lineColor={isDark ? '#93c5fd' : '#2563eb'}
+                textColor={isDark ? '#fafafa' : '#0a0a0a'}
+                intensity={0.9}
+                shineSize={14}
+                shineFade={45}
+                thickness={1.2}
+                speed={0.3}
+                followMouse
+                proximity={220}
               >
                 <Download className="w-4 h-4 mr-1" strokeWidth={1.8} />
                 Download Resume
-              </MagneticButton>
+              </SpecularButton>
             </div>
           </motion.div>
 
