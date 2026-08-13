@@ -9,7 +9,7 @@ import SplitText from '../ui/SplitText';
 import TextType from '../ui/TextType';
 import LightRays from '../ui/LightRays';
 
-export function Hero({ isDark }) {
+export function Hero() {
   const [imgError, setImgError] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const { scrollY } = useScroll();
@@ -36,12 +36,12 @@ export function Hero({ isDark }) {
     document.body.removeChild(link);
   };
 
-  const rayColor = isDark ? '#ffffff' : '#f5f5f0';
+  const rayColor = '#ffffff';
 
   return (
     <section
       id="hero"
-      className="relative overflow-hidden"
+      className="relative overflow-visible"
     >
       {/* Light Rays Background Effect — desktop only. On mobile the rays either get
           cropped or have to be blown out so wide they lose their shape, and the
@@ -50,14 +50,14 @@ export function Hero({ isDark }) {
         <div
           aria-hidden="true"
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '100%',
-            zIndex: 1,
-            pointerEvents: 'none',
-          }}
+  position: 'absolute',
+  top: '-120px',
+  left: 0,
+  right: 0,
+  height: 'calc(100% + 120px)',
+  zIndex: 1,
+  pointerEvents: 'none',
+}}
         >
           <LightRays
             raysOrigin="top-center"
@@ -77,9 +77,7 @@ export function Hero({ isDark }) {
             style={{
               position: 'absolute',
               inset: '65% 0 0 0',
-              background: isDark
-                ? 'linear-gradient(to bottom, transparent 0%, rgba(3,7,18,0.4) 100%)'
-                : 'linear-gradient(to bottom, transparent 0%, rgba(248,250,252,0.4) 100%)'
+              background: 'linear-gradient(to bottom, transparent 0%, rgba(3,7,18,0.4) 100%)'
             }}
           />
         </div>
@@ -92,21 +90,18 @@ export function Hero({ isDark }) {
           z-10
           w-full
           flex
-          items-center
           justify-center
           min-h-auto
           lg:min-h-screen
           px-6
           md:px-10
           lg:px-12
-          pt-24
-          lg:pt-32
           pb-16
         "
         style={{
           zIndex: 2,
-          paddingTop: isMobile ? '80px' : '110px',
-          paddingBottom: isMobile ? '48px' : '72px',
+          paddingTop: isMobile ? '20px' : '105px',
+          paddingBottom: isMobile ? '24px' : '60px',
           paddingLeft: isMobile ? '24px' : '5%',
           paddingRight: isMobile ? '24px' : '5%',
         }}
@@ -118,13 +113,13 @@ export function Hero({ isDark }) {
           className="
             mx-auto
             w-full
-            max-w-7xl
+            max-w-6xl
             flex
             flex-col
-            lg:flex-row
+            lg:grid
+            lg:grid-cols-[380px_1fr]
             items-center
-            justify-center
-            lg:justify-between
+            lg:items-start
             gap-10
             lg:gap-16
           "
@@ -221,11 +216,11 @@ export function Hero({ isDark }) {
           <motion.div
             variants={fadeUp}
             style={{
-              flex: isMobile ? 'unset' : '0 0 auto',
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center',
-              order: isMobile ? 0 : 1,
+              alignItems: 'flex-start',
+              width: '100%',
+              order: 0,
             }}
           >
             <motion.div style={{ y: scrollYImage }}>
@@ -242,9 +237,7 @@ export function Hero({ isDark }) {
                     position: 'absolute',
                     inset: '-24px',
                     borderRadius: '32px',
-                    background: isDark
-                      ? 'radial-gradient(ellipse at top, rgba(37,99,235,0.15) 0%, transparent 70%)'
-                      : 'radial-gradient(ellipse at top, rgba(37,99,235,0.12) 0%, transparent 70%)',
+                    background: 'radial-gradient(ellipse at top, rgba(37,99,235,0.15) 0%, transparent 70%)',
                     filter: 'blur(20px)',
                     pointerEvents: 'none',
                   }}
@@ -254,11 +247,9 @@ export function Hero({ isDark }) {
                 <div
                   className="relative rounded-2xl"
                   style={{
-                    width: isMobile ? '250px' : '310px',
+                    width: isMobile ? '250px' : '320px',
                     padding: '1px',
-                    background: isDark
-                      ? 'linear-gradient(160deg, rgba(96,165,250,0.55), rgba(99,102,241,0.15) 40%, rgba(255,255,255,0.06) 100%)'
-                      : 'linear-gradient(160deg, rgba(37,99,235,0.35), rgba(99,102,241,0.12) 40%, rgba(0,0,0,0.04) 100%)',
+                    background: 'linear-gradient(160deg, rgba(96,165,250,0.55), rgba(99,102,241,0.15) 40%, rgba(255,255,255,0.06) 100%)',
                   }}
                 >
                   <div
@@ -297,7 +288,7 @@ export function Hero({ isDark }) {
                         inset: 'auto 0 0 0',
                         height: '35%',
                         background: `linear-gradient(to bottom, transparent, var(--bg) 130%)`,
-                        opacity: isDark ? 0.55 : 0.35,
+                        opacity: 0.55,
                         pointerEvents: 'none',
                       }}
                     />
@@ -388,12 +379,12 @@ export function Hero({ isDark }) {
                 radius={9999}
                 onClick={handleDownloadResume}
                 className="specular-button--block"
-                tint={isDark ? '#0f172a' : '#ffffff'}
-                tintOpacity={isDark ? 0.55 : 0.6}
+                tint="#0f172a"
+                tintOpacity={0.55}
                 blur={20}
-                baseColor={isDark ? '#334155' : '#cbd5e1'}
-                lineColor={isDark ? '#93c5fd' : '#2563eb'}
-                textColor={isDark ? '#fafafa' : '#0a0a0a'}
+                baseColor="#334155"
+                lineColor="#93c5fd"
+                textColor="#fafafa"
                 intensity={0.9}
                 shineSize={14}
                 shineFade={45}

@@ -19,7 +19,7 @@ const Contact = lazy(() =>
 const TechStackFallback = () => <div style={{ minHeight: '600px' }} className="w-full relative" />;
 const ContactFallback = () => <div style={{ minHeight: '700px' }} className="w-full relative" />;
 
-export function Home({ isDark, onToggleTheme }) {
+export function Home() {
   const sectionIds = navLinks.map((l) => l.id);
   const activeId = useActiveSection(sectionIds);
 
@@ -27,13 +27,9 @@ export function Home({ isDark, onToggleTheme }) {
     <>
       <PremiumBackground />
       <ScrollProgress />
-      <Navbar
-        activeId={activeId}
-        isDark={isDark}
-        onToggleTheme={onToggleTheme}
-      />
+      <Navbar activeId={activeId} />
       <main>
-        <Hero isDark={isDark} />
+        <Hero />
         <FeaturedWork />
         <Suspense fallback={<TechStackFallback />}>
           <TechStack />

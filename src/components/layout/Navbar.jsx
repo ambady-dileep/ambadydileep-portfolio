@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { navLinks } from '../../data/site';
-import { ThemeToggle } from './ThemeToggle';
 
-export function Navbar({ activeId, isDark, onToggleTheme }) {
+export function Navbar({ activeId }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -49,9 +48,6 @@ export function Navbar({ activeId, isDark, onToggleTheme }) {
               </button>
             </li>
           ))}
-          <li className="flex items-center pl-1 ml-0.5 border-l border-[var(--border)]">
-            <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
-          </li>
         </ul>
 
         {/* Mobile Navbar (Below MD) */}
@@ -78,9 +74,6 @@ export function Navbar({ activeId, isDark, onToggleTheme }) {
               </button>
             </li>
           ))}
-          <li className="flex items-center pl-1 border-l border-[var(--border)] ml-0.5">
-            <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
-          </li>
         </ul>
       </motion.nav>
     </header>

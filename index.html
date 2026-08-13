@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <!-- Google Search Console Verification -->
@@ -102,16 +102,6 @@
       rel="stylesheet"
     />
     <title>Ambady Dileep | Freelance Web Developer & Frontend Engineer</title>
-    <script>
-      (function () {
-        var k = 'portfolio-theme';
-        var t = localStorage.getItem(k);
-        if (t !== 'light' && t !== 'dark') {
-          t = 'dark';
-        }
-        document.documentElement.classList.add(t);
-      })();
-    </script>
     <style>
       .loader-container {
         position: fixed;
@@ -122,9 +112,6 @@
         background-color: #030712;
         z-index: 9999;
         transition: opacity 0.4s ease, visibility 0.4s ease;
-      }
-      html.light .loader-container {
-        background-color: #f8fafc;
       }
       .loader-spinner {
         width: 38px;
@@ -164,7 +151,7 @@
         setTimeout(hide, 2000);
       })();
     </script>
-    <a
+    
       href="#hero"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-[#2563EB] focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold"
     >
